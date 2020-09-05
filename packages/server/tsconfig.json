@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"lib": ["es5", "es6"],
+		"target": "es5",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"types": ["node"],
+		"outDir": "./build",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "react",
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictPropertyInitialization": false,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"strict": true
+	},
+	"include": ["src"]
+}
