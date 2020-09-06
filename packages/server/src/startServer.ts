@@ -16,7 +16,7 @@ export const startServer = async () => {
 		app.use(
 			cors({
 				credentials: true,
-				origin: '*',
+				origin: 'http://localhost:3000',
 			})
 		);
 		app.use(cookieParser());
@@ -28,7 +28,6 @@ export const startServer = async () => {
 			context: ({ req, res }) => ({ req, res }),
 		});
 		apolloServer.applyMiddleware({ app, cors: false });
-		console.log(config);
 		server.listen(config.port);
 	} catch (error) {
 		console.log(error);
