@@ -1,0 +1,19 @@
+{
+	"name": "productividad",
+	"version": "1.0.0",
+	"license": "MIT",
+	"workspaces": [
+		"packages/*"
+	],
+	"private": true,
+	"repository": {
+		"type": "github",
+		"url": "https://github.com/iTheia/app-productividad.git"
+	},
+	"scripts": {
+		"dev": ""
+	},
+	"devDependencies": {
+		"concurrently": "^5.3.0"
+	}
+}
