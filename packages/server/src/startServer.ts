@@ -7,7 +7,10 @@ import { config } from './config';
 import { createConnection } from 'typeorm';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
+import { router } from './router';
 import { UserResolver } from './resolver/UserResolver';
+import { LabelResolver } from './resolver/LabelResolver';
+import { NoteResolver } from './resolver/NoteResolver';
 
 export const startServer = async () => {
 	try {
@@ -21,9 +24,10 @@ export const startServer = async () => {
 		);
 		app.use(cookieParser());
 		await createConnection();
+		app.use('/', router);
 		const apolloServer = new ApolloServer({
 			schema: await buildSchema({
-				resolvers: [UserResolver],
+				resolvers: [UserResolver, LabelResolver, NoteResolver],
 			}),
 			context: ({ req, res }) => ({ req, res }),
 		});

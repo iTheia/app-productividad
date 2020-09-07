@@ -4,14 +4,18 @@ import { User } from '../entity/User';
 import { config } from '../config';
 import { verify } from 'jsonwebtoken';
 import { hash, compare } from 'bcryptjs';
-import { sendRefreshToken, createRefreshToken } from '../middleware';
+import {
+	sendRefreshToken,
+	createRefreshToken,
+	createAccessToken,
+} from '../middleware';
 
 @Resolver()
 export class UserResolver {
 	@Query(() => User, { nullable: true })
-	async me(@Ctx() context: MyContext) {
+	async me(@Ctx() { req }: MyContext) {
 		try {
-			const authorization = context.req.headers['authorization'];
+			const authorization = req.headers['authorization'];
 			if (!authorization) {
 				return null;
 			}
@@ -43,10 +47,9 @@ export class UserResolver {
 			if (!validPassword) {
 				throw new Error('invalid login');
 			}
-			const token = createRefreshToken(user);
-			sendRefreshToken(res, token);
+			sendRefreshToken(res, createRefreshToken(user));
 			return {
-				accessToken: token,
+				accessToken: createAccessToken(user),
 				error: false,
 			};
 		} catch (e) {
