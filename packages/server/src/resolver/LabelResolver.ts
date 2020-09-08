@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 @Resolver()
 export class LabelResolver {
 	@Query(() => [Label])
-	async getLabels() {
+	async Labels() {
 		return await Label.find();
 	}
 

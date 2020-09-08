@@ -1,21 +1,36 @@
-import { BaseEntity, Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm';
+import {
+	BaseEntity,
+	Entity,
+	Column,
+	PrimaryGeneratedColumn,
+	ManyToOne,
+	JoinColumn,
+} from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
+import { Window } from './Window';
 
 @ObjectType()
 @Entity()
 export class Note extends BaseEntity {
-	@ObjectIdColumn()
-	id: ObjectID;
+	@PrimaryGeneratedColumn()
+	id: number;
 
 	@Field()
-	@Column('text')
+	@Column()
 	note: string;
 
 	@Field()
-	@Column('string', { nullable: false, default: '#ffffff' })
+	@Column({ nullable: false, default: '#ffffff' })
 	color: string;
 
 	@Field()
-	@Column('string')
+	@Column()
 	href: string;
+
+	@Column()
+	windowId: number;
+
+	@ManyToOne(() => Window, (window) => window.notes)
+	@JoinColumn({ name: 'windowId' })
+	owner: Window;
 }

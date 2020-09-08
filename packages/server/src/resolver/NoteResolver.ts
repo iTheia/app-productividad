@@ -6,7 +6,7 @@ import { Note } from '../entity/Note';
 @Resolver()
 export class NoteResolver extends BaseEntity {
 	@Query(() => [Note])
-	async getNotes() {
+	async Notes() {
 		return await Note.find();
 	}
 

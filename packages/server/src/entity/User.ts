@@ -1,15 +1,27 @@
-import { Entity, ObjectIdColumn, ObjectID, Column, BaseEntity } from 'typeorm';
+import {
+	Entity,
+	Column,
+	BaseEntity,
+	PrimaryGeneratedColumn,
+	OneToMany,
+} from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
+import { Label } from './Label';
 
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
-	@ObjectIdColumn()
-	id: ObjectID;
+	@PrimaryGeneratedColumn()
+	id: number;
 
 	@Field()
 	@Column()
 	userName: string;
+
+	@OneToMany(() => Label, (label) => label.owner, {
+		cascade: true,
+	})
+	labels: Label[];
 
 	@Field()
 	@Column()
@@ -21,7 +33,7 @@ export class User extends BaseEntity {
 	@Column()
 	password: string;
 
-	@Column('string', { nullable: true, default: null })
+	@Column({ nullable: true, default: null })
 	role: string;
 
 	@Column('int', { default: 0 })
